@@ -15,13 +15,15 @@ source venv/bin/activate
 
 # Run scraper with provided town name
 if [ -z "$1" ]; then
-    echo "Usage: ./run_scraper.sh <town_name> [output_file]"
+    echo "Usage: ./run_scraper.sh <town_name>"
     echo ""
     echo "Examples:"
     echo "  ./run_scraper.sh Uppsala"
-    echo "  ./run_scraper.sh Stockholm listings.md"
+    echo "  ./run_scraper.sh Stockholm"
     echo "  ./run_scraper.sh \"Göteborg\""
+    echo ""
+    echo "Output files are saved to: data/"
     exit 1
 fi
 
-python booli_scraper.py "$@"
+python booli_scraper.py "$1"

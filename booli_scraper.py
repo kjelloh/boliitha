@@ -10,26 +10,21 @@ from datetime import datetime
 from pathlib import Path
 
 
-def scrape_booli_listings(town_name, output_file=None):
+def scrape_booli_listings(town_name):
     """
     Scrape property listings from booli.se for a given town
 
     Args:
         town_name: Name of the town/city to search for
-        output_file: Output markdown file path (optional)
     """
-    if output_file is None:
-        # Create data directory if it doesn't exist
-        data_dir = Path('data')
-        data_dir.mkdir(exist_ok=True)
+    # Create data directory if it doesn't exist
+    data_dir = Path('data')
+    data_dir.mkdir(exist_ok=True)
 
-        # Create filename from town name and timestamp
-        safe_town = town_name.replace(' ', '_').lower()
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        output_file = data_dir / f'booli_listings_{safe_town}_{timestamp}.md'
-    else:
-        # If user provides a custom path, use it as-is
-        output_file = Path(output_file)
+    # Create filename from town name and timestamp
+    safe_town = town_name.replace(' ', '_').lower()
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    output_file = data_dir / f'booli_listings_{safe_town}_{timestamp}.md'
 
     print("=" * 60)
     print("Booli.se Property Listing Scraper")
@@ -219,7 +214,4 @@ if __name__ == "__main__":
             print("Error: Town name is required")
             sys.exit(1)
 
-    # Optional: custom output file
-    output = sys.argv[2] if len(sys.argv) > 2 else None
-
-    scrape_booli_listings(town, output)
+    scrape_booli_listings(town)
