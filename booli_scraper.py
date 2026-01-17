@@ -7,6 +7,7 @@ Searches for homes for sale in a specified town and saves results to markdown
 from playwright.sync_api import sync_playwright
 import sys
 from datetime import datetime
+from pathlib import Path
 
 
 def scrape_booli_listings(town_name, output_file=None):
@@ -18,10 +19,17 @@ def scrape_booli_listings(town_name, output_file=None):
         output_file: Output markdown file path (optional)
     """
     if output_file is None:
+        # Create data directory if it doesn't exist
+        data_dir = Path('data')
+        data_dir.mkdir(exist_ok=True)
+
         # Create filename from town name and timestamp
         safe_town = town_name.replace(' ', '_').lower()
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        output_file = f'booli_listings_{safe_town}_{timestamp}.md'
+        output_file = data_dir / f'booli_listings_{safe_town}_{timestamp}.md'
+    else:
+        # If user provides a custom path, use it as-is
+        output_file = Path(output_file)
 
     print("=" * 60)
     print("Booli.se Property Listing Scraper")
@@ -121,8 +129,7 @@ def scrape_booli_listings(town_name, output_file=None):
             markdown = generate_markdown(town_name, current_url, all_listings)
 
             # Save to file
-            with open(output_file, 'w', encoding='utf-8') as f:
-                f.write(markdown)
+            output_file.write_text(markdown, encoding='utf-8')
 
             print(f"✓ Saved {len(all_listings)} listings to {output_file}")
             print()
