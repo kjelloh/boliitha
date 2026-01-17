@@ -1,4 +1,4 @@
-# Bolitha
+# Boliitha
 
 A Python web scraper for the Swedish website booli.se, built with Playwright.
 
@@ -62,7 +62,7 @@ This will:
 ## Project Structure
 
 ```
-bolitha/
+boliitha/
 ├── init_toolchain.sh       # Setup script
 ├── requirements.txt        # Python dependencies
 ├── test_scraper.py         # Basic test to verify setup
@@ -107,7 +107,7 @@ This opens a browser with inspector tools that generate code as you click elemen
 In `booli_scraper.py`, you can configure:
 
 ```python
-scraper = BoliScraper(
+scraper = boliiScraper(
     headless=True,      # Hide browser window (False to see it)
     save_cookies=True   # Save session for reuse
 )
